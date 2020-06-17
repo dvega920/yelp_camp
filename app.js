@@ -9,35 +9,41 @@ let PORT = process.env.PORT || 3000;
 
 let app = express();
 
+// MIDDLEWARE
+
 app.engine('handlebars', exphbs({
     handlebars: allowInsecurePrototypeAccess(handlebars)
 }));
-
 app.set("view engine", "handlebars");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// DATABASE CONNECTION
 mongoose.connect("mongodb://localhost/yelp_camp",
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
 
+// DB SCHEMA DEFINES STRUCTURE OF DB COLLECTION
 let campgroundSchema = new mongoose.Schema({
     name: String,
     image: String,
     description: String
 });
 
+// CREATES A MODEL FROM THE SCHEMA AND ASSIGNS TO VARIABLE TO USE WHEN PERFORMING QUERIES
 let Campground = mongoose.model("Campground", campgroundSchema);
 
-
+// DEFAULT PAGE WHEN APP LOADS. STRUCTURE AND DESIGN...STILL IN PROGRESS
 app.get("/", function (req, res) {
     res.render("landing");
 });
 
+// ROUTE RENDERS ALL OF THE CAMPGROUNDS FROM THE DB COLLECTION
 app.get("/campgrounds", function (req, res) {
-    //Get all campgrounds from DB
+
+    //QUERY ALL CAMPGROUNDS IN THE DB COLLECTION AND CONSOLE'S ERROR (IF ANY), OTHERWISE RENDERS CAMPGROUDS
     Campground.find({}, function (err, campgrounds) {
         if (err) {
             console.log(err);
@@ -52,6 +58,7 @@ app.get("/campgrounds", function (req, res) {
     })
 });
 
+// SAVES THE DATA FROM THE INPUT FIELDS AND STORES THEM IN A NEW OBJECT 
 app.post("/campgrounds", function (req, res) {
     // get data from form and add to campgrounds area
     let name = req.body.name;
@@ -60,6 +67,7 @@ app.post("/campgrounds", function (req, res) {
     let newCampground = { name: name, image: image, description: description };
     // campgrounds.push(newCampground);
 
+    // CREATES A NEW CAMPGROUND FROM THE NEW OBJECT
     Campground.create(newCampground, function (err, campground) {
         if (err) {
             console.log(err);
@@ -69,18 +77,21 @@ app.post("/campgrounds", function (req, res) {
         }
     });
 
-    //redirect to campgrounds page
+    //REDIRECTS TO THE /CAMPGROUNDS ROUTE TO DISPLAY NEWLY CREATED OBJECT.
     res.redirect("/campgrounds");
 })
 
+// ROUTE TO DISPLAY THE PAGE WHERE A USER ENTERS IN A NEW CAMPGROUND NAME AND IMAGE
 app.get("/campgrounds/new", function (req, res) {
     res.render("new");
 });
 
+// ROUTE TO DISPLAY CAMPGROUNDS BASED ON ASSIGNED ID IN DB
 app.get("/campgrounds/:id", function (req, res) {
-    // the code below renders "show" template correctly but page "keeps loading" and err logged   reason: Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
 
-    //find camp ground with provided ID
+    // the code below renders "show" template correctly but page "keeps loading" and err logged reason: Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
+
+    //QUERY CAMPGROUND WITH PROVIDED ID WHEN USER CLICKS ON "MORE INFO" ON /CAMPGROUNDS
     let id = req.params.id;
     Campground.findById(id, function (err, foundCampground) {
         console.log(foundCampground);
