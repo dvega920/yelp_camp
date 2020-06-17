@@ -1,0 +1,27 @@
+{{> header}}
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome To YelpCamp!</h1>
+            <p>View our hand-picked campgrounds from all over the world</p>
+            <a class="btn btn-lg btn-primary" href="/campgrounds/new">Add New Campground</a>
+        </div>
+    </header>
+
+    <div class="row text-center" style="display: flex; flex-wrap:wrap">
+        {{#each campground}}
+        <div class="col-md-3 col-sm-6">
+            <div class="card mb-4">
+                <div class="caption">
+                    <h4 class="card-text">{{name}}</h4>
+                </div>
+                <img src="{{image}}" class="card-img-top" alt="...">
+                {{!-- <p>{{description}}</p> --}}
+                <p><a href="/campgrounds/{{id}}" target="_blank" class="btn btn-primary">More Info</a></p>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+{{> footer}}
