@@ -63,7 +63,7 @@ app.post("/campgrounds", function (req, res) {
     // get data from form and add to campgrounds area
     let name = req.body.name;
     let image = req.body.image;
-    let description = req.body.description;
+    let description = req.body.description; // there is no input for this yet.
     let newCampground = { name: name, image: image, description: description };
     // campgrounds.push(newCampground);
 
