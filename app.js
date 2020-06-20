@@ -67,13 +67,13 @@ app.post("/campgrounds", function (req, res) {
     let newCampground = { name: name, image: image, description: description };
     // campgrounds.push(newCampground);
 
-    // CREATES A NEW CAMPGROUND FROM THE NEW OBJECT
+    // CREATES A NEW CAMPGROUND FROM THE NEWCAMPGROUND OBJECT
     Campground.create(newCampground, function (err, campground) {
         if (err) {
             console.log(err);
         } else {
             console.log("Newly Created Campground");
-            console.log(campground);
+            // console.log(campground);
         }
     });
 
