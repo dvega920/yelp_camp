@@ -1,7 +1,8 @@
-let express = require("express"),
-    handlebars = require("handlebars"),
+let bodyParser = require("body-parser"),
+    Campground = require("./models/campground"),
+    express = require("express"),
     exphbs = require("express-handlebars"),
-    bodyParser = require("body-parser"),
+    handlebars = require("handlebars"),
     mongoose = require("mongoose"),
     { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 
@@ -25,15 +26,6 @@ mongoose.connect("mongodb://localhost/yelp_camp",
         useUnifiedTopology: true
     });
 
-// DB SCHEMA DEFINES STRUCTURE OF DB COLLECTION
-let campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
-
-// CREATES A MODEL FROM THE SCHEMA AND ASSIGNS TO VARIABLE TO USE WHEN PERFORMING QUERIES
-let Campground = mongoose.model("Campground", campgroundSchema);
 
 // DEFAULT PAGE WHEN APP LOADS. STRUCTURE AND DESIGN...STILL IN PROGRESS
 app.get("/", function (req, res) {
