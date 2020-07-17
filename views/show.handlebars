@@ -6,4 +6,8 @@
 <img src="{{campground.image}}" alt="">
 <p>{{campground.description}}</p>
 
+{{#each campground.comments}}
+<p><strong>{{author}}</strong> - {{text}}</p>
+{{/each}}
+
 {{> footer}}
