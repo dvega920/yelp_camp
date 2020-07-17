@@ -4,7 +4,10 @@ let bodyParser = require("body-parser"),
     exphbs = require("express-handlebars"),
     handlebars = require("handlebars"),
     mongoose = require("mongoose"),
+    seedDB = require("./seeds"),
     { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
+
+seedDB();
 
 let PORT = process.env.PORT || 3000;
 
