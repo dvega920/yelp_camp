@@ -35,7 +35,7 @@ app.get("/", function (req, res) {
     res.render("landing");
 });
 
-// ROUTE RENDERS ALL OF THE CAMPGROUNDS FROM THE DB COLLECTION
+// INDEX - ROUTE RENDERS ALL OF THE CAMPGROUNDS 
 app.get("/campgrounds", function (req, res) {
 
     //QUERY ALL CAMPGROUNDS IN THE DB COLLECTION AND CONSOLE'S ERROR (IF ANY), OTHERWISE RENDERS CAMPGROUDS
@@ -52,8 +52,7 @@ app.get("/campgrounds", function (req, res) {
         }
     })
 });
-
-// SAVES THE DATA FROM THE INPUT FIELDS AND STORES THEM IN A NEW OBJECT 
+// CREATE - ROUTE SAVES THE DATA FROM THE INPUT FIELDS AND STORES THEM IN A NEW OBJECT 
 app.post("/campgrounds", function (req, res) {
     // get data from form and add to campgrounds area
     let name = req.body.name;
@@ -76,23 +75,24 @@ app.post("/campgrounds", function (req, res) {
     res.redirect("/campgrounds");
 })
 
-// ROUTE TO DISPLAY THE PAGE WHERE A USER ENTERS IN A NEW CAMPGROUND NAME AND IMAGE
+// NEW - ROUTE TO DISPLAY THE PAGE WHERE A USER ENTERS IN A NEW CAMPGROUND NAME AND IMAGE
 app.get("/campgrounds/new", function (req, res) {
     res.render("new");
 });
 
-// ROUTE TO DISPLAY CAMPGROUNDS BASED ON ASSIGNED ID IN DB
+// SHOW - ROUTE TO DISPLAY CAMPGROUNDS BASED ON ASSIGNED ID IN DB
 app.get("/campgrounds/:id", function (req, res) {
 
     // the code below renders "show" template correctly but page "keeps loading" and err logged reason: Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
 
     //QUERY CAMPGROUND WITH PROVIDED ID WHEN USER CLICKS ON "MORE INFO" ON /CAMPGROUNDS
     let id = req.params.id;
-    Campground.findById(id, function (err, foundCampground) {
+    Campground.findById(id).populate("comments").exec(function (err, foundCampground) {
         console.log(foundCampground);
         if (err) {
             console.log(err);
         } else {
+            console.log(foundCampground);
             res.render("show", { campground: foundCampground });
         }
     })
