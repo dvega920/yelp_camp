@@ -22,7 +22,7 @@ let data = [
 
 function seedDB() {
     //Remove campgrounds
-    Campground.remove({}, function (err) {
+    Campground.deleteMany({}, function (err) {
         if (err) {
             console.log(err);
         }
