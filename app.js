@@ -43,7 +43,7 @@ app.get("/campgrounds", function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render("index", {
+            res.render("campgrounds/index", {
                 campground: campgrounds,
                 allowProtoMethodsByDefault: true,
                 allowProtoPropertiesByDefault: true
@@ -77,7 +77,7 @@ app.post("/campgrounds", function (req, res) {
 
 // NEW - ROUTE TO DISPLAY THE PAGE WHERE A USER ENTERS IN A NEW CAMPGROUND NAME AND IMAGE
 app.get("/campgrounds/new", function (req, res) {
-    res.render("new");
+    res.render("campgrounds/new");
 });
 
 // SHOW - ROUTE TO DISPLAY CAMPGROUNDS BASED ON ASSIGNED ID IN DB
@@ -93,10 +93,19 @@ app.get("/campgrounds/:id", function (req, res) {
             console.log(err);
         } else {
             console.log(foundCampground);
-            res.render("show", { campground: foundCampground });
+            res.render("campgrounds/show", { campground: foundCampground });
         }
     })
 });
+
+// *******************************************
+// COMMENT ROUTES
+// *******************************************
+
+app.get("/campgrounds/:id/comments/new", function (req, res) {
+    res.render("comments/new");
+
+})
 
 app.listen(PORT, function () {
     console.log(`App is listening on localhost:${PORT}`);
