@@ -1,4 +1,6 @@
 {{> header}}
+
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -11,11 +13,11 @@
         </div>
         <div class="col-md-9">
             <div class="card">
-                <img class="card-img-top" src="{{campground.image}}" alt="">
-                <div class="card-body">
+                <img class="img-thumbnail show" src="{{campground.image}}" alt=" {{campground.name}}">
+                <div class="caption-full">
                     <div class="card-title">
                         <h4 class="float-right">$9.00/night</h4>
-                        <h4><a href="">{{campground.name}}</a></h4>
+                        <h4><a href="/campgrounds">{{campground.name}}</a></h4>
                         <p>{{campground.description}}</p>
                     </div>
                 </div>
@@ -39,6 +41,6 @@
             </div>
         </div>
     </div>
-    <h1>This is the show page!</h1>
+    {{!-- <h1>This is the show page!</h1> --}}
 </div>
 {{> footer}}
