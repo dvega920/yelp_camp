@@ -1,4 +1,5 @@
 {{> header}}
+
 <div class="container">
     <header class="jumbotron">
         <div class="container">
@@ -11,11 +12,11 @@
     <div class="row text-center" style="display: flex; flex-wrap:wrap">
         {{#each campground}}
         <div class="col-md-3 col-sm-6">
-            <div class="card mb-4">
+            <div class="card">
+                <img class="img-thumbnail" src="{{image}}" alt="{{name}}">
                 <div class="caption">
-                    <h4 class="card-text">{{name}}</h4>
+                    <h4 class="card-title">{{name}}</h4>
                 </div>
-                <img src="{{image}}" class="card-img-top mb-2" alt="...">
                 {{!-- <p>{{description}}</p> --}}
                 <p><a href="/campgrounds/{{id}}" target="_blank" class="btn btn-primary">More Info</a></p>
             </div>
