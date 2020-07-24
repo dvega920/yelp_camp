@@ -1,0 +1,19 @@
+.img-thumbnail {
+    width: 100%;
+    padding: 0;
+    height: 200px;
+}
+
+.row a {
+    margin: 10px;
+}
+
+.img-thumbnail.show {
+    height: 400px;
+}
+
+.caption-full {
+    padding: 10px;
+}
+
+
