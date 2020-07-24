@@ -20,7 +20,7 @@ app.engine('handlebars', exphbs({
     handlebars: allowInsecurePrototypeAccess(handlebars)
 }));
 app.set("view engine", "handlebars");
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // DATABASE CONNECTION
