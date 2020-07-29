@@ -19,7 +19,7 @@ router.get("/", function (req, res) {
     })
 });
 // CREATE - ROUTE SAVES THE DATA FROM THE INPUT FIELDS AND STORES THEM IN A NEW OBJECT 
-router.post("/", function (req, res) {
+router.post("/", isLoggedIn, function (req, res) {
     // get data from form and add to campgrounds area
     let name = req.body.name;
     let image = req.body.image;
@@ -42,7 +42,7 @@ router.post("/", function (req, res) {
 })
 
 // NEW - ROUTE TO DISPLAY THE PAGE WHERE A USER ENTERS IN A NEW CAMPGROUND NAME AND IMAGE
-router.get("/new", function (req, res) {
+router.get("/new", isLoggedIn, function (req, res) {
     res.render("campgrounds/new");
 });
 
@@ -61,4 +61,11 @@ router.get("/:id", function (req, res) {
     })
 });
 
+// middleware
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login")
+}
 module.exports = router;
