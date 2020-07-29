@@ -14,7 +14,7 @@ let bodyParser = require("body-parser"),
     campgroundRoutes = require('./routes/campgrounds'),
     indexRoutes = require('./routes/index')
 
-seedDB();
+// seedDB();
 
 let PORT = process.env.PORT || 3000;
 
