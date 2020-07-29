@@ -23,22 +23,22 @@ router.post("/", isLoggedIn, function (req, res) {
     // get data from form and add to campgrounds area
     let name = req.body.name;
     let image = req.body.image;
-    let description = req.body.description; // there is no input for this yet.
-    let newCampground = { name: name, image: image, description: description };
-    // campgrounds.push(newCampground);
-
+    let description = req.body.description;
+    let author = {
+        id: req.user._id,
+        username: req.user.username
+    };
+    let newCampground = { name: name, image: image, description: description, author: author };
     // CREATES A NEW CAMPGROUND FROM THE NEWCAMPGROUND OBJECT
     Campground.create(newCampground, function (err, campground) {
         if (err) {
             console.log(err);
         } else {
-            console.log("Newly Created Campground");
-            // console.log(campground);
+            console.log(campground);
+            // redirect back to campgrounds page
+            res.redirect("/campgrounds");
         }
     });
-
-    //REDIRECTS TO THE /CAMPGROUNDS ROUTE TO DISPLAY NEWLY CREATED OBJECT.
-    res.redirect("/campgrounds");
 })
 
 // NEW - ROUTE TO DISPLAY THE PAGE WHERE A USER ENTERS IN A NEW CAMPGROUND NAME AND IMAGE
