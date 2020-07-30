@@ -12,7 +12,8 @@ let bodyParser = require("body-parser"),
     User = require('./models/user'),
     commentRoutes = require('./routes/comments'),
     campgroundRoutes = require('./routes/campgrounds'),
-    indexRoutes = require('./routes/index')
+    indexRoutes = require('./routes/index'),
+    methodOverride = require('method-override')
 
 // seedDB();
 
@@ -28,6 +29,7 @@ app.engine('handlebars', exphbs({
 app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 //Passport Config
 
