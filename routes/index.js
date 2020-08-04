@@ -4,8 +4,7 @@ let passport = require('passport');
 let User = require('../models/user');
 
 // SHOW REGISTER FORM
-router
-    .route("/register")
+router.route("/register")
     .get(function (req, res) {
         res.render("register");
     })
@@ -24,8 +23,7 @@ router
     });
 
 // SHOW LOGIN FORM
-router
-    .route("/login")
+router.route("/login")
     .get(function (req, res) {
         res.render("login");
     })
@@ -38,8 +36,7 @@ router
         });
 
 // LOGOUT ROUTE
-router
-    .route("/logout")
+router.route("/logout")
     .get(function (req, res) {
         req.logOut();
         res.redirect("/campgrounds");
