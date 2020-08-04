@@ -44,7 +44,31 @@ router.route("/")
                 })
             }
         })
-    });
+    })
+router.route("/:comment_id/edit")
+    .get(function (req, res) {
+        Comment.findById(req.params.comment_id, function (err, foundComment) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("comments/edit", { campground_id: req.params.id, comment: foundComment })
+            }
+        })
+    })
+
+// UPDATE COMMENT
+router.route("/:comment_id")
+    .put(function (req, res) {
+        // res.send("You hit the update route for comments");
+        Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function (err, updatedComments) {
+            if (err) {
+                res.redirect("back");
+            } else {
+                res.redirect("/campgrounds/" + req.params.id);
+            }
+        })
+    })
+
 
 //-------- MIDDLEWARE ---------//
 function isLoggedIn(req, res, next) {
