@@ -41,15 +41,24 @@
                             Comment</a></p>
                 </div>
                 <hr>
-                {{#each campground.comments}}
+
+                {{!-- {{#each campground.comment}} --}}
+                {{!-- need to loop through campground first and then nest comments loop --}}
+
+                {{#each campground}} {{!-- loops through campgrounds --}}
+                {{#each comments}} {{!-- loops through comments --}}
                 <div class="row">
                     <div class="col-md-12">
                         <strong>{{author.username}}</strong>
                         <span class="float-right">10 days ago</span>
                         <p>{{text}}</p>
+                        <a class="btn btn-xs btn-warning" style="margin-left: 0px;"
+                            href="/campgrounds/{{../_id}}/comments/{{_id}}/edit">Edit</a>
                     </div>
                 </div>
                 {{/each}}
+                {{/each}}
+
             </div>
         </div>
     </div>
