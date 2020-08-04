@@ -62,6 +62,11 @@ mongoose.connect("mongodb://localhost/yelp_camp",
         useUnifiedTopology: true
     });
 
+// Root route
+app.get("/", function (req, res) {
+    res.render("landing");
+});
+
 app.listen(PORT, function () {
     console.log(`App is listening on localhost:${PORT}`);
 });
