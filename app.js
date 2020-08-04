@@ -62,7 +62,7 @@ mongoose.connect("mongodb://localhost/yelp_camp",
         useUnifiedTopology: true
     });
 
-// Root route
+// ROOT ROUTE
 app.get("/", function (req, res) {
     res.render("landing");
 });
