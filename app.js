@@ -3,6 +3,7 @@ let bodyParser = require("body-parser"),
     Comment = require("./models/comment"),
     express = require("express"),
     exphbs = require("express-handlebars"),
+    flash = require("connect-flash"),
     handlebars = require("handlebars"),
     mongoose = require("mongoose"),
     seedDB = require("./seeds"),
@@ -21,7 +22,13 @@ let PORT = process.env.PORT || 3000;
 
 let app = express();
 
-// MIDDLEWARE
+// DATABASE CONNECTION
+mongoose.connect("mongodb://localhost/yelp_camp",
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+
 
 app.engine('handlebars', exphbs({
     handlebars: allowInsecurePrototypeAccess(handlebars)
@@ -30,9 +37,9 @@ app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(flash());
 
-//Passport Config
-
+//PASSPORT CONFIG
 app.use(require('express-session')({
     secret: "yelpcamp user auth",
     resave: false,
@@ -50,17 +57,12 @@ app.use(function (req, res, next) {
     next();
 });
 
-//requiring routes
+//REQUIRING ROUTES
 app.use(indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-// DATABASE CONNECTION
-mongoose.connect("mongodb://localhost/yelp_camp",
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+
 
 // ROOT ROUTE
 app.get("/", function (req, res) {
