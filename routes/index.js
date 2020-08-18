@@ -14,9 +14,11 @@ router.route("/register")
         User.register(newUser, req.body.password, function (err, user) {
             if (err) {
                 console.log(err);
+                req.flash("error", err.message) // Displays error when user already exists but does not when username and password are empty. app breaks
                 res.render("register")
             }
             passport.authenticate("local")(req, res, function () {
+                req.flash("success", "Welcome to YelpCamp " + user.username);
                 res.redirect("/campgrounds");
             })
         });
@@ -25,7 +27,7 @@ router.route("/register")
 // SHOW LOGIN FORM
 router.route("/login")
     .get(function (req, res) {
-        res.render("login", { message: req.flash("error") });
+        res.render("login");
     })
     // HANDLES LOGIN LOGIC
     .post(passport.authenticate("local",
@@ -39,6 +41,7 @@ router.route("/login")
 router.route("/logout")
     .get(function (req, res) {
         req.logOut();
+        req.flash("success", "Logged you out!");
         res.redirect("/campgrounds");
     });
 
