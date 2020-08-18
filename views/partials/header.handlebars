@@ -51,3 +51,12 @@
 
         </div>
     </nav>
+
+    {{!-- Flash message --}}
+    {{!-- Need to write a handlebars if statement to check if any errors. If so, display error alert  --}}
+    <div class="container">
+        <div class="alert alert-danger" role="alert">{{error}}</div>
+
+        {{!-- Need to write a handlebars if statement to check if any successes. If so, display success alert  --}}
+        <div class="alert alert-success" role="alert">{{success}}</div>
+    </div>
