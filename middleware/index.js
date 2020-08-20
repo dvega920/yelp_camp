@@ -15,7 +15,7 @@ middlewareObj.checkCampgroundOwnership = function (req, res, next) {
     // Checks to see if user is logged in
     if (req.isAuthenticated()) {
         Campground.findById(req.params.id, function (err, foundCampground) {
-            if (err) {
+            if (err || !foundCampground) { //added "OR" to fix error handling issue
                 req.flash("error", "Campground not found");
                 res.redirect("back")
             } else {
@@ -38,7 +38,8 @@ middlewareObj.checkCommentOwnership = function (req, res, next) {
     // Checks to see if user is logged in
     if (req.isAuthenticated()) {
         Comment.findById(req.params.comment_id, function (err, foundComment) {
-            if (err) {
+            if (err || !foundComment) { // added || ("OR") to fix error handling bug that did not account for null values
+                req.flash("error", "Comment not found"); // replaced console.log with flash error
                 res.redirect("back")
             } else {
                 // Checks if logged in user created comment
