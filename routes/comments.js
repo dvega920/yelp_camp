@@ -52,12 +52,18 @@ router.route("/")
 // COMMENT EDIT ROUTE
 router.route("/:comment_id/edit")
     .get(middlewareObj.checkCommentOwnership, function (req, res) {
-        Comment.findById(req.params.comment_id, function (err, foundComment) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.render("comments/edit", { campground_id: req.params.id, comment: foundComment })
+        Campground.findById(req.params.id, function (err, foundCampground) {
+            if (err || !foundCampground) {
+                req.flash("error", "Campground not found");
+                return res.redirect("back");
             }
+            Comment.findById(req.params.comment_id, function (err, foundComment) {
+                if (err) {
+                    res.redirect("back"); // replaced console.log
+                } else {
+                    res.render("comments/edit", { campground_id: req.params.id, comment: foundComment })
+                }
+            })
         })
     })
 
