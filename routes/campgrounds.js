@@ -54,8 +54,9 @@ router.route("/:id")
         //QUERY CAMPGROUND WITH PROVIDED ID WHEN USER CLICKS ON "MORE INFO" ON /CAMPGROUNDS
         let id = req.params.id;
         Campground.findById(id).populate("comments").exec(function (err, foundCampground) {
-            if (err) {
-                console.log(err);
+            if (err || !foundCampground) { // Added "OR" statement to fix error handling bug not accounting for null value
+                req.flash("error", "Campground not found"); // error handling
+                res.redirect("back");
             } else {
                 console.log(foundCampground);
                 res.render("campgrounds/show", { campground: foundCampground });
