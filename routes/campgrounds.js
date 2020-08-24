@@ -23,13 +23,14 @@ router.route("/")
     .post(middlewareObj.isLoggedIn, function (req, res) {
         // get data from form and add to campgrounds area
         let name = req.body.name;
+        let price = req.body.price;
         let image = req.body.image;
         let description = req.body.description;
         let author = {
             id: req.user._id,
             username: req.user.username
         };
-        let newCampground = { name: name, image: image, description: description, author: author };
+        let newCampground = { name: name, price: price, image: image, description: description, author: author };
         // CREATES A NEW CAMPGROUND FROM THE NEWCAMPGROUND OBJECT
         Campground.create(newCampground, function (err, campground) {
             if (err) {
@@ -42,7 +43,7 @@ router.route("/")
         });
     })
 
-// NEW - ROUTE TO DISPLAY THE PAGE WHERE A USER ENTERS IN A NEW CAMPGROUND NAME AND IMAGE
+// NEW - ROUTE TO DISPLAY THE PAGE WHERE A USER ENTERS IN A NEW CAMPGROUND NAME, PRICE, IMAGE & DESCRIPTION
 router.route("/new")
     .get(middlewareObj.isLoggedIn, function (req, res) {
         res.render("campgrounds/new");
