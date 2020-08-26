@@ -23,17 +23,20 @@ let PORT = process.env.PORT || 3000;
 let app = express();
 
 // DATABASE CONNECTION
-// mongoose.connect("mongodb://localhost/yelp_camp",
-//     {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true
-//     });
-mongoose.connect("mongodb://dvega920:yelpcamp1@ds141450.mlab.com:41450/heroku_n17wv3br",
+
+console.log(process.env.DATABASEURL)
+
+mongoose.connect(process.env.DATABASEURL, //created environment variable to hide db connection credentials
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
 
+// mongoose.connect("mongodb://dvega920:yelpcamp1@ds141450.mlab.com:41450/heroku_n17wv3br",
+//     {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true
+//     });
 
 app.engine('handlebars', exphbs({
     handlebars: allowInsecurePrototypeAccess(handlebars)
