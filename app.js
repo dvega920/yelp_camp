@@ -24,19 +24,14 @@ let app = express();
 
 // DATABASE CONNECTION
 
-console.log(process.env.DATABASEURL)
+// console.log(process.env.DATABASEURL)
 
-mongoose.connect(process.env.DATABASEURL, //created environment variable to hide db connection credentials
+//created environment variable to hide db connection credentials
+mongoose.connect(process.env.DATABASEURL,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
-
-// mongoose.connect("mongodb://dvega920:yelpcamp1@ds141450.mlab.com:41450/heroku_n17wv3br",
-//     {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true
-//     });
 
 app.engine('handlebars', exphbs({
     handlebars: allowInsecurePrototypeAccess(handlebars)
